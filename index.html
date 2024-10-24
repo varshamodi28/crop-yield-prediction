@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crop Yield Prediction per country</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom CSS -->
+    <style>
+      /* Background settings */
+      body {
+        background-image: url("https://th.bing.com/th/id/OIP.QKjZiNx67YoMREoIoM5-dAAAAA?w=247&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      /* Styling the form container */
+      .form-container {
+        background-color: rgba(50, 50, 50, 0.85);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      /* Styling the navbar */
+      .navbar {
+        padding: 20px;
+      }
+
+      /* Center-align navigation links */
+      .navbar-nav {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Spacing adjustments between input fields */
+      .form-control {
+        margin-bottom: 1.25rem;
+      }
+
+      /* Spacing between form and result */
+      .result-section {
+        margin-top: 2rem;
+      }
+
+      /* Styling the buttons */
+      .btn-custom {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-custom:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      /* Responsive form settings */
+      @media (max-width: 576px) {
+        .form-container {
+          padding: 20px;
+        }
+
+        .form-container h2 {
+          font-size: 1.5rem;
+        }
+      }
+
+      /* Styling the footer */
+      .footer {
+        text-align: center;
+        background-color: #343a40;
+        color: white;
+        padding: 15px;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid d-flex justify-content-between">
+        <div></div>
+      </div>
+    </nav>
+
+    <!-- Main Form Section -->
+    <center>
+      <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-8 col-sm-12 form-container">
+            <h2 class="text-center text-primary mb-4">
+              Crop Yield Prediction per country
+            </h2>
+            <form action="/predict" method="post">
+              <div class="mb-3">
+                <label for="Year" class="form-label">Year</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="Year"
+                  step="1"
+                  min="1990"
+                  placeholder="Enter Year (from 1990)"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="average_rain_fall_mm_per_year" class="form-label">
+                  Average Rainfall (mm/year)
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="average_rain_fall_mm_per_year"
+                  step="any"
+                  placeholder="Enter Average Rainfall"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="pesticides_tonnes" class="form-label">
+                  Pesticides (tonnes)
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="pesticides_tonnes"
+                  step="any"
+                  placeholder="Enter Pesticide Use"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="avg_temp" class="form-label">
+                  Average Temperature (°C)
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="avg_temp"
+                  step="any"
+                  placeholder="Enter Average Temperature"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="Area" class="form-label">Area</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="Area"
+                  placeholder="Enter Area"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="Item" class="form-label">Crop Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="Item"
+                  placeholder="Enter Crop Type"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-custom btn-lg w-100">
+                Predict
+              </button>
+            </form>
+
+            <!-- Display Prediction Result -->
+            {% if prediction %}
+            <div class="result-section mt-4 alert alert-success text-center">
+              <h4>Predicted Yield: {{ prediction }}</h4>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </center>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>
+        &copy; 2024 Crop Yield Prediction Project | Developed for Final Year
+        B.Sc. Computer Science
+      </p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
